@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" type="text/css" href="/css/auth_login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Авторизация</h2>
+            <form action="/auth/login" method="post" id="login_form">
+                <label for="login">Имя пользователя:</label>
+                <input type="text" id="login" name="login" required>
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Войти</button>
+            </form>
+            <div id="error-message" style="color: red; display: none;">Не верные данные!</div>
+                <script>
+                    document.getElementById("login_form").addEventListener("submit", async function (event) {
+                        event.preventDefault();
+                        const form = event.target;
+                        const data = new FormData(form);
+                        const formData = {};
+                        data.forEach((value, key) => {
+                            formData[key] = value;
+                        });
+
+                        const response = await fetch('/auth/login', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        if (response.ok) {
+                            window.location.href = '/main_page';
+                        } else {
+                          const errorMessageElement = document.getElementById('error-message');
+                          errorMessageElement.innerText = 'Не верные данные';
+                          errorMessageElement.style.display = 'block';
+                        }
+                    });
+                </script>
+            <a href="/auth/register">Регистрация</a>
+        </div>
+    </div>
+</body>
+</html>

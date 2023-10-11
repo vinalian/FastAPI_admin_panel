@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users and Items</title>
+    <link rel="stylesheet" type="text/css" href="/css/main_page.css">
+</head>
+<body>
+    <h1>Users</h1>
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in all_users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.login }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Items</h1>
+    <table class="item-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>User ID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in all_items %}
+            <tr>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.user_id}}</td>
+                <td>
+                    <button class="edit-button">Edit</button>
+                    <button class="delete-button">Delete</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button id="add-item-button">Add Item</button>
+    <div id="add-item-form" class="hidden">
+        <h2>Add Item</h2>
+        <form name="add-item-form">
+            <label for="item-name">Name:</label>
+            <input type="text" id="item-name" name="name" required>
+            <label for="user-id">User ID:</label>
+            <select id="user-id" name="user_id" required>
+                {% for user in all_users %}
+                <option value="{{ user.id }}">{{ user.id }}</option>
+                {% endfor %}
+            </select>
+            <button class="save-button" type="submit">Save</button>
+            <button class="cancel-button" type="reset">Cancel</button>
+        </form>
+    </div>
+
+    <div id="edit-item-form" class="hidden">
+        <h2>Edit Item</h2>
+        <form>
+            <label for="edit-item-id">id:</label>
+            <input type="text" id="edit-item-id" name="id" required>
+            <label for="edit-item-name">Name:</label>
+            <input type="text" id="edit-item-name" name="name" required>
+            <label for="edit-user-id">User ID:</label>
+            <select id="edit-user-id" name="user_id" required>
+                {% for user in all_users %}
+                <option value="{{ user.id }}">{{ user.id }}</option>
+                {% endfor %}
+            </select>
+            <button class="save-button" type="submit">Save</button>
+            <button class="cancel-button" type="reset">Cancel</button>
+        </form>
+    </div>
+
+    <script src="/js/main_page_script.js"></script>
+</body>
+</html>

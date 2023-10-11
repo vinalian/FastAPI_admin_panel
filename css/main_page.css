@@ -1,0 +1,47 @@
+/* Стили для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Стили для кнопок "Edit" и "Delete" */
+.edit-button, .delete-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #45a049;
+}
+
+/* Стили для кнопки "Add Item" */
+#add-item-button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#add-item-button:hover {
+    background-color: #0073a1;
+}
+
+/* Скрытие формы по умолчанию */
+.hidden {
+    display: none;
+}

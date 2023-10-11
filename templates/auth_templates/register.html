@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" type="text/css" href="/css/auth_login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>Регистрация</h2>
+            <form action="/auth/register" method="post" id="register_form">
+                <label for="login">Имя пользователя:</label>
+                <input type="text" id="login" name="login" required>
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+                <script>
+                    document.getElementById("register_form").addEventListener("submit", async function (event) {
+                        event.preventDefault();
+                        const form = event.target;
+                        const data = new FormData(form);
+                        const formData = {};
+                        data.forEach((value, key) => {
+                            formData[key] = value;
+                        });
+
+                        const response = await fetch('/auth/register', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+                        if (response.ok) {
+                            window.location.href = '/auth/login';
+                        } else {
+                            console.error('Failed to register')
+                        }
+                    });
+    </script>
+            <a href="/auth/re">Войти</a>
+        </div>
+    </div>
+</body>
+</html>
