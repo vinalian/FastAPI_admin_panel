@@ -3,13 +3,12 @@ from starlette.staticfiles import StaticFiles
 from app.auth import router as auth_router
 from app.main_page import router as main_page_router
 from pydantic import BaseModel
-import os
 import sys
 
 
 class Settings(BaseModel):
     BASE_URL: str = "http://localhost:8001"
-    USE_NGROK: bool = os.environ.get("USE_NGROK")
+    USE_NGROK: bool = False
 
 
 settings = Settings()

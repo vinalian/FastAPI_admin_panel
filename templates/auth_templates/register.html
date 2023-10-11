@@ -17,6 +17,7 @@
                 <input type="password" id="password" name="password" required>
                 <button type="submit">Зарегистрироваться</button>
             </form>
+            <div id="error-message" style="color: red; display: none;">Пользователь с таким логином уже зарегистрирован!</div>
                 <script>
                     document.getElementById("register_form").addEventListener("submit", async function (event) {
                         event.preventDefault();
@@ -37,11 +38,14 @@
                         if (response.ok) {
                             window.location.href = '/auth/login';
                         } else {
-                            console.error('Failed to register')
+                          const errorMessageElement = document.getElementById('error-message');
+                          errorMessageElement.innerText = 'Пользователь с таким логином уже зарегистрирован!';
+                          errorMessageElement.style.display = 'block';
+                          document.getElementById('password').value = null;
                         }
                     });
     </script>
-            <a href="/auth/re">Войти</a>
+            <a href="/auth/login">Войти</a>
         </div>
     </div>
 </body>

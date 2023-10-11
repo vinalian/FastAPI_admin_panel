@@ -3,12 +3,13 @@ from database.basemodels import UserSchema
 from misc.hasher import Hasher
 from starlette.responses import RedirectResponse, HTMLResponse
 from database.functions import create_new_user, get_user_by_username
-
 from fastapi.templating import Jinja2Templates
+from misc.token import create_jwt_token
 
 from pydantic import BaseModel
 
 templates = Jinja2Templates(directory="../templates/auth_templates")
+
 
 router = APIRouter()
 
@@ -51,11 +52,21 @@ async def login(login_data: LoginData):
     if not password_valid:
         raise HTTPException(status_code=400, detail="Неверный логин/пароль")
 
-    return RedirectResponse(
-        url="/main_page",
+    encoded_jwt = create_jwt_token(user)
+
+    response = RedirectResponse(
+        url=f"/main_page",
         status_code=status.HTTP_303_SEE_OTHER,
-        headers={'auth': 'success', 'user': user.login}
+        headers={'Token': encoded_jwt}
     )
+    response.set_cookie(
+        key="Token",
+        value=encoded_jwt,
+        max_age=1800,
+        secure=True,
+        httponly=True,
+    )
+    return response
 
 
 @router.get("/auth/register")
